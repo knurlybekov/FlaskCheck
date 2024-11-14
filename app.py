@@ -30,5 +30,22 @@ def receive_data():
         return jsonify({"status": "error", "message": "No JSON received"}), 400
 
 
+@app.route('/dangerLevels', methods=['GET'])
+def receive_alert():
+    # Make a request to the source endpoint
+    response = requests.get("https://172.218.153.209/dangerLevels",
+                            verify=False)  # verify=False ignores SSL cert validation
+    response.raise_for_status()  # Raise an exception for HTTP errors
+
+    # Get the string data from the response
+    string_data = response.text
+
+    # Print the string to the terminal
+    print("Fetched string:", string_data)
+
+    # Return the string as a JSON response
+    return jsonify({"fetched_string": string_data}), 200
+
+
 if __name__ == '__main__':
     app.run()
