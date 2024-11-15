@@ -35,7 +35,6 @@ def receive_data():
 @app.route('/dangerLevels', methods=['GET'])
 def receive_alert():
     try:
-        # Ensure this IP is not your own server's IP
         response = requests.post("https://172.218.153.209/dangerLevels", verify=False)
         response.raise_for_status()
         string_data = response.text
